@@ -6,12 +6,14 @@ const Button = (props) => {
   )
 }
 
-const Stats = (props) => {
+const Stats = ({ props }) => {
+  const { good, neutral, bad } = props
   return (
     <>
-      <p>good {props.props.good}</p>
-      <p>neutral {props.props.neutral}</p>
-      <p>bad {props.props.bad}</p>
+      <h1>statistics</h1>
+      <p>good {good}</p>
+      <p>neutral {neutral}</p>
+      <p>bad {bad}</p>
     </>
   )
 }
