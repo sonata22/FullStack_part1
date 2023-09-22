@@ -61,6 +61,7 @@ const App = () => {
   const [bad, setBad] = useState(0)
   const [selected, setSelected] = useState(0)
   const [votesNum, setVotesNum] = useState(Array(anecdotes.length).fill(0))
+  const [topVotedAnecdoteIndex, setTopVotedAnecdoteIndex] = useState(0)
 
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -71,9 +72,12 @@ const App = () => {
   const clickOnBad = () => setBad(bad + 1)
   const clickOnAnecdoteBtn = () => setSelected(getRandomInt(anecdotes.length))
   const clickVote = () => {
-    const copy = [...votesNum]
-    copy[selected] += 1
-    setVotesNum(copy)
+    const newVotesNum = [...votesNum]
+    newVotesNum[selected] += 1
+    setVotesNum(newVotesNum)
+    let topAnecdoteVotesNum = Math.max(...newVotesNum)
+    let isTopAnecdoteVotesNum = (num) => num === topAnecdoteVotesNum;
+    setTopVotedAnecdoteIndex(newVotesNum.findIndex(isTopAnecdoteVotesNum))
   }
 
   return (
@@ -84,12 +88,15 @@ const App = () => {
       <Button action={clickOnBad} text='bad' />
       <h1>statistics</h1>
       <Stats props={{ good, neutral, bad }} />
-      <h1>Anecdotes</h1>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}
-      <p>Votes total: {votesNum[selected]}</p>
+      <p>Has votes total: {votesNum[selected]}</p>
       <br />
       <Button action={clickVote} text='Vote' />
       <Button action={clickOnAnecdoteBtn} text='Randomize Anecdote' />
+      <h1>Anecdote with most votes</h1>
+      {anecdotes[topVotedAnecdoteIndex]}
+      <p>Has votes total: {votesNum[topVotedAnecdoteIndex]}</p>
     </div>
   )
 }
