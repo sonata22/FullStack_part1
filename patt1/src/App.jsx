@@ -75,8 +75,8 @@ const App = () => {
     const newVotesNum = [...votesNum]
     newVotesNum[selected] += 1
     setVotesNum(newVotesNum)
-    let topAnecdoteVotesNum = Math.max(...newVotesNum)
-    let isTopAnecdoteVotesNum = (num) => num === topAnecdoteVotesNum;
+    const topAnecdoteVotesNum = Math.max(...newVotesNum)
+    const isTopAnecdoteVotesNum = (num) => num === topAnecdoteVotesNum;
     setTopVotedAnecdoteIndex(newVotesNum.findIndex(isTopAnecdoteVotesNum))
   }
 
